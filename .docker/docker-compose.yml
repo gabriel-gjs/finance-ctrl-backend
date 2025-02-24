@@ -1,0 +1,43 @@
+services:
+  database-postgres:
+    container_name: finance-ctrl-database
+    build:
+      context: ../
+      dockerfile: .docker/postgresql/Dockerfile
+    ports:
+      - "${DATABASE_PORT}:5432"
+    environment:
+      TZ: ${DATABASE_TZ}
+      POSTGRES_DB: ${DATABASE_NAME_DB}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    networks:
+      - finance-ctrl-network-api
+    restart: on-failure
+    tty: true
+
+  finance-ctrl-api:
+    container_name: finance-ctrl-api
+    build:
+      context: ../
+      dockerfile: .docker/java/Dockerfile
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    working_dir: /var/www/finance-ctrl-api
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - ../:/var/www/finance-ctrl-api
+    networks:
+      - finance-ctrl-network-api
+    depends_on:
+      - database-postgres
+    links:
+      - database-postgres
+    tty: true
+networks:
+  finance-ctrl-network-api:
+    name: finance-ctrl-network
