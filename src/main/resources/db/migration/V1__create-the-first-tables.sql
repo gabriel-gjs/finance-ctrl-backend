@@ -1,16 +1,17 @@
 CREATE TABLE usuario(
    id                   SERIAL  PRIMARY KEY,
-   email                VARCHAR NOT NULL UNIQUE,
-   senha                VARCHAR NOT NULL,
-   status               CHAR(1) NOT NULL,
+   email                TEXT NOT NULL UNIQUE,
+   senha                TEXT NOT NULL,
+   cargo                TEXT NOT NULL,
+   status               VARCHAR NOT NULL,
    criado_em            TIMESTAMP,
    atualizado_em        TIMESTAMP
 );
 
 CREATE TABLE pessoa (
    id                SERIAL PRIMARY KEY,
-   nome              VARCHAR NOT NULL,
-   cpf               VARCHAR NOT NULL UNIQUE,
+   nome              TEXT NOT NULL,
+   cpf               TEXT NOT NULL UNIQUE,
    data_nascimento   DATE NOT NULL,
    criado_em         TIMESTAMP,
    atualizado_em     TIMESTAMP,
@@ -22,9 +23,9 @@ CREATE TABLE pessoa (
 
 CREATE TABLE parametro (
    id                SERIAL PRIMARY KEY,
-   nome              VARCHAR NOT NULL,
-   valor             VARCHAR NOT NULL,
-   descricao         VARCHAR NOT NULL,
+   nome              TEXT NOT NULL,
+   valor             TEXT NOT NULL,
+   descricao         TEXT NOT NULL,
    status            CHAR(1) NOT NULL,
    criado_em         TIMESTAMP,
    atualizado_em     TIMESTAMP,
@@ -36,7 +37,7 @@ CREATE TABLE parametro (
 
 CREATE TABLE categoria (
    id                SERIAL PRIMARY KEY,
-   nome              VARCHAR NOT NULL,
+   nome              TEXT NOT NULL,
    criado_em         TIMESTAMP,
    atualizado_em     TIMESTAMP,
    usuario_id        INTEGER,
