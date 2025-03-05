@@ -1,7 +1,7 @@
-package domain.entities.user;
+package com.gabriel_gjs.finance_ctrl.domain.entities.user;
 
-import domain.entities.role.Role;
-import domain.entities.user.enums.UserStatus;
+import com.gabriel_gjs.finance_ctrl.domain.entities.role.Role;
+import com.gabriel_gjs.finance_ctrl.domain.entities.user.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

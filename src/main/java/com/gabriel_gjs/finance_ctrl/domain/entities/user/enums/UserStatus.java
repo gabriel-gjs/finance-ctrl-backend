@@ -1,4 +1,4 @@
-package domain.entities.user.enums;
+package com.gabriel_gjs.finance_ctrl.domain.entities.user.enums;
 
 public enum UserStatus {
     ACTIVE("A"),

@@ -1,6 +1,6 @@
-package domain.repositories;
+package com.gabriel_gjs.finance_ctrl.domain.repositories;
 
-import domain.entities.user.User;
+import com.gabriel_gjs.finance_ctrl.domain.entities.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

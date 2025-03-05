@@ -1,4 +1,4 @@
-package domain.entities.role;
+package com.gabriel_gjs.finance_ctrl.domain.entities.role;
 
 import jakarta.persistence.*;
 
