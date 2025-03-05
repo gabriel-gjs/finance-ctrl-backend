@@ -29,7 +29,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
-    private Long user_id;
+    private Long id;
 
     @Column(name = "email", unique=true)
     private String email;
