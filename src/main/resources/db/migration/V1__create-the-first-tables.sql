@@ -4,8 +4,7 @@ CREATE TABLE usuario(
    senha                VARCHAR NOT NULL,
    status               CHAR(1) NOT NULL,
    criado_em            TIMESTAMP,
-   atualizado_em        TIMESTAMP,
-   atualizado_por       INTEGER REFERENCES usuario(id)
+   atualizado_em        TIMESTAMP
 );
 
 CREATE TABLE pessoa (
