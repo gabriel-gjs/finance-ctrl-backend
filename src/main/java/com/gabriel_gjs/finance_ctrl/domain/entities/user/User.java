@@ -1,6 +1,6 @@
 package com.gabriel_gjs.finance_ctrl.domain.entities.user;
 
-import com.gabriel_gjs.finance_ctrl.domain.entities.role.Role;
+import com.gabriel_gjs.finance_ctrl.domain.entities.user.enums.UserRole;
 import com.gabriel_gjs.finance_ctrl.domain.entities.user.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,8 +9,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,7 +24,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -32,7 +37,12 @@ public class User {
     @Column(name = "senha")
     private String password;
 
+    @Enumerated(EnumType.STRING)
     private UserStatus status;
+
+    @Column(name = "cargo")
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
     @CreationTimestamp
     @Column(name = "criado_em")
@@ -42,14 +52,19 @@ public class User {
     @Column(name = "atualizado_em")
     private Date updatedIn;
 
-    @Column(name = "atualizado_por")
-    private User updatedBy;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == UserRole.ADMIN) {
+            return List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER")
+            );
+        }
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "cargoDosUsuarios",
-            joinColumns= @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
 }
