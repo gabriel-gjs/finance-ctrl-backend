@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @Slf4j
 public class UserService {
@@ -28,31 +26,11 @@ public class UserService {
 
     @Transactional
     public User saveUser(User user, Person person) {
-        log.info("inicio do registrar usuário");
-        log.info(user.toString());
-        log.info(person.toString());
-
         User newUser = this.userRepository.save(user);
-
-        log.info("Usuario salvo");
-        log.info(user.toString());
-        log.info(person.toString());
-        log.info(newUser.toString());
 
         person.setUser(newUser);
 
-        log.info("Setado usuario no person");
-        log.info(user.toString());
-        log.info(person.toString());
-        log.info(newUser.toString());
-
         this.personRepository.save(person);
-
-        log.info("Person salvo com sucesso");
-        log.info(user.toString());
-        log.info(person.toString());
-        log.info(newUser.toString());
-
 
         return newUser;
     }
