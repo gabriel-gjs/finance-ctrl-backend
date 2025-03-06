@@ -15,7 +15,7 @@ CREATE TABLE pessoa (
    data_nascimento   DATE NOT NULL,
    criado_em         TIMESTAMP,
    atualizado_em     TIMESTAMP,
-   usuario_id        INTEGER,
+   usuario_id        INTEGER UNIQUE,
    atualizado_por    INTEGER,
    CONSTRAINT fk_pessoa_atualizado_por FOREIGN KEY (atualizado_por) REFERENCES usuario(id),
    CONSTRAINT fk_pessoa_usuario_id     FOREIGN KEY (usuario_id)     REFERENCES usuario(id)

@@ -1,10 +1,8 @@
 package com.gabriel_gjs.finance_ctrl.domain.entities.person;
 
+import com.gabriel_gjs.finance_ctrl.domain.entities.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,6 +14,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Person {
 
     @Id
@@ -23,12 +22,13 @@ public class Person {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "nome")
     private String name;
 
     @Column(name = "cpf", unique = true)
     private String cpf;
 
-    @Column(name = "senha")
+    @Column(name = "data_nascimento")
     private Date birthdayDate;
 
     @CreationTimestamp
@@ -38,4 +38,10 @@ public class Person {
     @UpdateTimestamp
     @Column(name = "atualizado_em")
     private Date updatedIn;
+
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true)
+    private User user;
+
+
 }

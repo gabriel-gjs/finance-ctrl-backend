@@ -1,12 +1,10 @@
 package com.gabriel_gjs.finance_ctrl.domain.entities.user;
 
+import com.gabriel_gjs.finance_ctrl.domain.entities.person.Person;
 import com.gabriel_gjs.finance_ctrl.domain.entities.user.enums.UserRole;
 import com.gabriel_gjs.finance_ctrl.domain.entities.user.enums.UserStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,6 +22,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class User implements UserDetails {
 
     @Id
@@ -51,6 +50,9 @@ public class User implements UserDetails {
     @UpdateTimestamp
     @Column(name = "atualizado_em")
     private Date updatedIn;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Person person;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
