@@ -34,14 +34,3 @@ CREATE TABLE parametro (
    CONSTRAINT fk_parametro_atualizado_por FOREIGN KEY (atualizado_por) REFERENCES usuario(id),
    CONSTRAINT fk_parametro_usuario_id     FOREIGN KEY (usuario_id)     REFERENCES usuario(id)
 );
-
-CREATE TABLE categoria (
-   id                SERIAL PRIMARY KEY,
-   nome              TEXT NOT NULL,
-   criado_em         TIMESTAMP,
-   atualizado_em     TIMESTAMP,
-   usuario_id        INTEGER,
-   atualizado_por    INTEGER,
-   CONSTRAINT fk_categoria_atualizado_por FOREIGN KEY (atualizado_por) REFERENCES usuario(id),
-   CONSTRAINT fk_categoria_usuario_id     FOREIGN KEY (usuario_id)     REFERENCES usuario(id)
-);

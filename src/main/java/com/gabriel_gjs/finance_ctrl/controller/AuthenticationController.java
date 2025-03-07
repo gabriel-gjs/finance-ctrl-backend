@@ -1,6 +1,9 @@
 package com.gabriel_gjs.finance_ctrl.controller;
 
-import com.gabriel_gjs.finance_ctrl.domain.entities.user.dtos.LoginDTO;
+import com.gabriel_gjs.finance_ctrl.domain.entities.user.User;
+import com.gabriel_gjs.finance_ctrl.domain.entities.user.dtos.LoginRequestDTO;
+import com.gabriel_gjs.finance_ctrl.domain.entities.user.dtos.LoginResponseDTO;
+import com.gabriel_gjs.finance_ctrl.services.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,12 +20,18 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginDTO data) {
+    public ResponseEntity login(@RequestBody LoginRequestDTO data) {
         var tokenByEmailAndPassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
 
         var auth = this.authenticationManager.authenticate(tokenByEmailAndPassword);
 
-        return ResponseEntity.ok().build();
+        var token = this.tokenService.generateTokenJWT((User) auth.getPrincipal());
+
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 }
