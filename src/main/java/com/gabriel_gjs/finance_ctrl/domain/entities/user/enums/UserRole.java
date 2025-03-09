@@ -1,5 +1,8 @@
 package com.gabriel_gjs.finance_ctrl.domain.entities.user.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum UserRole {
     ADMIN("admin"),
 
@@ -11,8 +14,4 @@ public enum UserRole {
         this.role = role;
     }
 
-
-    public String getRole() {
-         return this.role;
-    }
- }
+}

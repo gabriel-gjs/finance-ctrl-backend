@@ -2,7 +2,7 @@ package com.gabriel_gjs.finance_ctrl.controller;
 
 import com.gabriel_gjs.finance_ctrl.domain.entities.person.Person;
 import com.gabriel_gjs.finance_ctrl.domain.entities.user.User;
-import com.gabriel_gjs.finance_ctrl.domain.entities.user.dtos.UserCreateDTO;
+import com.gabriel_gjs.finance_ctrl.domain.entities.user.dtos.UserCreateRequestDTO;
 import com.gabriel_gjs.finance_ctrl.domain.factories.PersonFactory;
 import com.gabriel_gjs.finance_ctrl.domain.factories.UserFactory;
 import com.gabriel_gjs.finance_ctrl.domain.repositories.PersonRepository;
@@ -38,16 +38,25 @@ public class UserController {
     private PersonFactory personFactory;
 
     @PostMapping("/user")
-    public ResponseEntity createUser(@RequestBody UserCreateDTO data) {
+    public ResponseEntity createUser(@RequestBody UserCreateRequestDTO data) {
         log.info("Inicio de registro de usuário com seguinte body:");
-        log.info(data.name(),data.birthdayDate(),data.cpf(),data.email());
 
+        log.info((
+                "Nome: ".concat(data.name()) +
+                ", Data de aniversário: ".concat(data.birthdayDate())  +
+                ", CPF: ".concat(data.cpf())  +
+                ", E-mail: }".concat(data.email()) )
+        );
 
         if(this.userRepository.findByEmail(data.email()) != null) {
+            log.info(data.email(), " <- Email já cadastrado");
+
             return ResponseEntity.badRequest().build();
         }
 
         if(this.personRepository.findByCpf(data.cpf()) != null) {
+            log.info(data.email(), " <- CPF já cadastrado");
+
             return ResponseEntity.badRequest().build();
         }
 
@@ -58,6 +67,8 @@ public class UserController {
 
         User userSaved = userService.saveUser(newUser, newPerson);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(userSaved);
+        log.info("Registro de usuário realizado com sucesso");
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.userFactory.generateResponseUser(userSaved));
     }
 }
