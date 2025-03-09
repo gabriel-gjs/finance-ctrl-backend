@@ -1,6 +1,6 @@
 package com.gabriel_gjs.finance_ctrl.domain.entities.user.dtos;
 
-public record UserCreateDTO(
+public record UserCreateRequestDTO(
         String name,
         String cpf,
         String birthdayDate,

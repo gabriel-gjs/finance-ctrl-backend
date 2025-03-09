@@ -30,7 +30,7 @@ public class UserService {
 
         person.setUser(newUser);
 
-        this.personRepository.save(person);
+        newUser.setPerson(this.personRepository.save(person));
 
         return newUser;
     }

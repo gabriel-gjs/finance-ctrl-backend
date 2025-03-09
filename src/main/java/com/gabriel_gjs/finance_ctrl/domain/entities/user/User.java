@@ -1,5 +1,6 @@
 package com.gabriel_gjs.finance_ctrl.domain.entities.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gabriel_gjs.finance_ctrl.domain.entities.person.Person;
 import com.gabriel_gjs.finance_ctrl.domain.entities.user.enums.UserRole;
 import com.gabriel_gjs.finance_ctrl.domain.entities.user.enums.UserStatus;
@@ -33,6 +34,8 @@ public class User implements UserDetails {
     private String email;
 
     @Column(name = "senha")
+    @JsonIgnore
+    @ToString.Exclude
     private String password;
 
     @Enumerated(EnumType.STRING)
