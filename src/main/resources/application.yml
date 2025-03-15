@@ -16,13 +16,13 @@ spring:
   datasource:
     username: ${DATABASE_USERNAME}
     password: ${DATABASE_PASSWORD}
-    url: jdbc:postgresql://localhost:5432/finance-ctrl
+    url: ${DATABASE_URL}
 
   #JPA configuration
   jpa:
     database-plataform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         show_sql: false
