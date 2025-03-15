@@ -16,7 +16,7 @@ import java.time.ZoneOffset;
 @Service
 @Slf4j
 public class TokenService {
-    @Value("{api.security.token.secret}")
+    @Value("{api.security.token-secret}")
     private String secret;
 
     public String generateTokenJWT(User user) {
