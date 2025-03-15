@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: finance-ctrl
+
+api:
+  security:
+    token-secret: ${JWT_SECRET}
+---
+#Properties for profile: dev
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+
+  #Datasource configuration
+  datasource:
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    url: ${DATABASE_URL}
+
+  #JPA configuration
+  jpa:
+    database-plataform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: true
