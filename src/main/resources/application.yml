@@ -10,7 +10,53 @@ api:
 spring:
   config:
     activate:
-      on-profile: "dev"
+      on-profile: "local"
+
+  #Datasource configuration
+  datasource:
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    url: ${DATABASE_URL}
+
+  jpa:
+    database-plataform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      #JPA configuration
+      hibernate:
+        show_sql: false
+        format_sql: true
+
+---
+#Properties for profile: qa
+spring:
+  config:
+    activate:
+      on-profile: "qa"
+
+  #Datasource configuration
+  datasource:
+    username: postgres
+    password: MbLucHkD1BZfUiSt
+    url: jdbc:postgresql://db.ctwqkaawsipixqkjyiis.supabase.co:5432/postgres
+
+  #JPA configuration
+  jpa:
+    database-plataform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: true
+
+---
+#Properties for profile: prod
+spring:
+  config:
+    activate:
+      on-profile: "prod"
 
   #Datasource configuration
   datasource:
