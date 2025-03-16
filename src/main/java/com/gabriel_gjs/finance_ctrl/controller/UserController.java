@@ -3,6 +3,7 @@ package com.gabriel_gjs.finance_ctrl.controller;
 import com.gabriel_gjs.finance_ctrl.domain.entities.person.Person;
 import com.gabriel_gjs.finance_ctrl.domain.entities.user.User;
 import com.gabriel_gjs.finance_ctrl.domain.entities.user.dtos.UserCreateRequestDTO;
+import com.gabriel_gjs.finance_ctrl.domain.entities.user.dtos.UserCreateResponseDTO;
 import com.gabriel_gjs.finance_ctrl.domain.factories.PersonFactory;
 import com.gabriel_gjs.finance_ctrl.domain.factories.UserFactory;
 import com.gabriel_gjs.finance_ctrl.services.UserService;
@@ -30,7 +31,7 @@ public class UserController {
     private PersonFactory personFactory;
 
     @PostMapping("/user")
-    public ResponseEntity createUser(@RequestBody UserCreateRequestDTO data) {
+    public ResponseEntity<UserCreateResponseDTO> createUser(@RequestBody UserCreateRequestDTO data) {
         log.info("Inicio de registro de usuário com seguinte body:");
 
         log.info((
